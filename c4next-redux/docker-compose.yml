@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  mynextapp:
+    container_name: next-web
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 3001:3000
+    volumes:
+      - /usr/app/node_modules
+      - /usr/app/.next
+      - /Users/topteranai/docker-bootcamp/c4next-redux:/usr/app
+      # Required to sync file changes.
+      # - .:/usr/app
+      # # Required to not break node modules.
+      # - /usr/app/node_modules
+      # # Required for next to do it's thing.
+      # - /usr/app/.next

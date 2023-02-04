@@ -1,0 +1,29 @@
+/* web select font => https://fonts.google.com/?subset=thai&noto.script=Thai */
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+
+* {
+  box-sizing: border-box;
+  /* ให้อ้างอิงตามขนาดจริง  */
+  font-family: 'Prompt', sans-serif;
+}
+/* ทุก element */
+
+
+body {
+  background: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  margin: 30px auto;
+  width: 350px;
+}
+
+/* .container h1 {
+  color: red;
+} สามารถเข้าถึงภายใน class child ได้เลย เช่น container ครอบ tag h1 => .container h1 */

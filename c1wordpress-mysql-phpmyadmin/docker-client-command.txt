@@ -1,0 +1,70 @@
+CONTAINER
+    - wordpress
+    - mysql
+    - pma
+IMAGE
+    = wordpress
+    - mysql
+    - phpmyadmin
+NETWORK
+    - wordpress
+
+COMMAND 
+    PULL IMAGE
+        - docker pull wordpress
+        - docker pull mysql
+        - docker pull phpmyadmin
+    CREATE NETWORK
+        - docker network create wordpress
+    RUN CONTAINER
+        - docker run --name mysql -e MYSQL_ROOT_PASSWORD=1111 -d mysql
+        - docker run --name pma -p 8888:80 -e PMA_ARBITRARY=1 -d phpmyadmin
+        - docker run --name wordpress -p 888:80 --network wordpress -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=1111 -d wordpress
+    CONNECT NETWORK
+        - docker network connect wordpress mysql
+        - docker network connect wordpress pma
+    CHECK NETWORK && CHECK VOLUME CONTAINER
+        - docker network inspect wordpress (check container in network)
+        - docker container inspect wordpress (check volume in container)
+    CREATE VOLUME
+        - docker volume create wp_volume
+        - docker volume create mysql_volume
+    CONNECT VOLUME
+        - docker run -d --name mysql --network wordpress -v mysql_volume:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1111 mysql
+        - docker run -d --name wordpress --network wordpress -v wp_volume:/var/www/html -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=1111 -p 889:80 wordpress
+    BIND MOUNT AT HOSTMACHNIE
+        - docker run -d --name mysql --network wordpress -v /Users/topteranai/docker-bootcamp/wordpress-mysql/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1111 mysql
+        - docker run -d --name wordpress --network wordpress -v /Users/topteranai/docker-bootcamp/wordpress-mysql/wp:/var/www/html -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=1111 -p 889:80 wordpress
+
+EXAMPLE
+    # CREATE NETWORK
+        - docker network create wordpress
+    # CREATE VOLUME
+        - docker volume create db_data
+    # MYSQL
+        - docker run --name mysql --network wordpress -v db_data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1111 -d mysql:5.7
+    # WORDPRESS
+        - docker run -d --name wordpress --network wordpress -p 888:80 -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=1111 wordpress
+    # phpmyadmin
+        - docker run --name pma -d --network wordpress -p 8888:80 -e PMA_ARBITRARY=1 phpmyadmin
+
+COMMAND DOCKER COMPOSE
+    # CHECK ความถูกต้องของ docker-compose.yml
+        - docker-compose config (show detail) || docker-compose config -q (not show detail)
+
+    # RUN docker-compose.yml || name docker-compose other
+        - docker-compose up -d || docker-compose up -d -f <name file docker-compose>
+        
+        # RUN docker-compose.yml but not start container
+            - docker-compose up --no-start
+        - docker-compose start
+        - docker-compose stop
+
+    # STOP docker-compose.yml
+        - docker-compose down
+
+    # LIST
+        - docker-compose ps
+
+    
+    

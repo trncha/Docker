@@ -1,0 +1,20 @@
+COMMAND DOCKER COMPOSE
+    # CHECK ความถูกต้องของ docker-compose.yml
+        - docker-compose config (show detail) || docker-compose config -q (not show detail)
+
+    # RUN docker-compose.yml || name docker-compose other
+        - docker-compose up -d || docker-compose up -d -f <name file docker-compose>
+        
+        # RUN docker-compose.yml but not start container
+            - docker-compose up --no-start
+        - docker-compose start
+        - docker-compose stop
+
+    # STOP docker-compose.yml
+        - docker-compose down
+
+    # LIST
+        - docker-compose ps
+    
+    # กรณีแก้ไขไฟล์ Code ให้ REBUILD จะทำการ build image ใหม่
+        - docker-compose up -d --build

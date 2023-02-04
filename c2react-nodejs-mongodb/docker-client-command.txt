@@ -1,0 +1,46 @@
+COMMAND
+    BUILD IMAGE
+        - docker build . -t <new name image>
+    RUN CONTAINER
+        - docker run -p 3000:3000 <image>
+        - docker run -p 3005:3000 -v /usr/app/node_modules -v /Users/topteranai/docker-bootcamp/C2react-nodejs-mongodb/nodejs:/usr/app mynodeapp:1.0
+        # -v ตัวแรก คือการ bookmark volumes ให้ใช้ folder ของ container ในการอ้างอิง
+        # -v ที่สอง คือการ bind mount
+    SH CHECK FILE COPY TO CONTAINER
+        - docker exec -it <container> sh
+    BUILD PROD (Dockerfile.prod)
+        - docker build -f Dockerfile.prod . -t myreactapp:1.1
+    RUN CONTAINER PROD
+        (nginx expose port 80)
+        - docker run -p 3001:80 --network shoppers -d --name myreactapp_p myreactapp:1.1
+
+EXAMPLE
+    # CREATE NETWORK
+        - docker network create shoppers
+    # MONGODB
+        - docker run -d --name mymongodb --network shoppers mymongodb:1.0
+    # NODE.JS - API
+        - docker run -d --name mynodejsapp -p 3000:3000 -e DATABASE_USER=admin -e DATABASE_PASSWORD=1111 -e DATABASE_HOST=mymongodb --network shoppers mynodejsapp:1.1
+    # NGINX - REACT
+        - docker run -d --name myreactapp_p --network shoppers -p 3001:80 myreactapp:1.1
+
+COMMAND DOCKER COMPOSE
+    # CHECK ความถูกต้องของ docker-compose.yml
+        - docker-compose config (show detail) || docker-compose config -q (not show detail)
+
+    # RUN docker-compose.yml || name docker-compose other
+        - docker-compose up -d || docker-compose up -d -f <name file docker-compose>
+        
+        # RUN docker-compose.yml but not start container
+            - docker-compose up --no-start
+        - docker-compose start
+        - docker-compose stop
+
+    # STOP docker-compose.yml
+        - docker-compose down
+
+    # LIST
+        - docker-compose ps
+    
+    # กรณีแก้ไขไฟล์ Code ให้ REBUILD จะทำการ build image ใหม่
+        - docker-compose up -d --build

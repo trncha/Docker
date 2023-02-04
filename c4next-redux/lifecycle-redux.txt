@@ -1,0 +1,23 @@
+# Life Cycle Redux (component => actions => reducers => store => component)
+    STEP
+        - create folder redux
+            - actions (action คือการส่งไปบอกตัว Reducer ว่าจะให้ตัว Reducer ทำอะไร จะสั่งให้ state ทำงานอะไร เช่น เพิ่ม ลบ แก้ไขข้อมูล ผ่าน  actions )
+                - counterActions
+
+            - reducers
+                - rootReducer.js (ไฟล์หลัก Reducer ไว้สำหรับการรวม Reducer ทุกตัวเข้ามาหากัน)
+                - counterReducer.js
+
+            - store.js (พื้นที่กลางไว้เก็บตัว state ทั้งหมดไว้ที่นี้)
+        
+        - เรียก redux ที่ pages => _app.js (เพราะว่า nextjs โหลดไฟล์นี้เป็นไฟล์แรก) 
+
+    INSTALL LIBRARY
+        - redux
+        - react-redux
+        - redux-thunk
+        - next-redux-wrapper
+        # Command (npm i -s redux react-redux redux-thunk next-redux-wrapper)
+
+    
+docker run -p 3000:3000 -v /usr/src/app/node_modules -v /Users/topteranai/docker-bootcamp/c4next-redux/frontend:/usr/src/app mynodeapp

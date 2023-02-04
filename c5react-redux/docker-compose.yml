@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    container_name: myreactapp
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 3001:3000
+    volumes:
+      - /usr/app/node_modules
+      - /Users/topteranai/docker-bootcamp/c5react-redux:/usr/app

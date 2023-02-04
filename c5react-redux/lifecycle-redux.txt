@@ -1,0 +1,12 @@
+# Life Cycle Redux
+    STEP
+        - PostForm.js
+        - AllPost.js
+
+    INSTALL LIBRARY
+        - redux
+        - react-redux
+        # Command npm i redux react-redux
+
+Redux => state management library เอาไว้จัดการ state ใน react application 
+redux จะสามารถทำให้เราเข้าถึงข้อมูลใน react application ได้ทุกที่เลย ไม่ว่าจะอยู่ใน component ไหน ไม่ต้องส่งข้อมูลผ่าน props

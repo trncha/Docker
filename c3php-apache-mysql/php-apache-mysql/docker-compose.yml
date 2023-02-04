@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  php:
+    build: 
+      dockerfile: Dockerfile
+      # ถ้าเป็น Dockerfile ไม่ต้องใส่ dockerfile: Dockerfile ก็ได้ จะดึงค่า default dockerfile: Dockerfile มาให้
+      context: ./php
+    ports:
+      - 8080:80
+    volumes:
+      - ./site:/var/www/html
+  database:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 1111
